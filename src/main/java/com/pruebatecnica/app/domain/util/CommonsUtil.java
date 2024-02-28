@@ -25,20 +25,31 @@ public class CommonsUtil {
 	 */
 	public static LocalDateTime obtainDatePrice(String date) {
 		
-		String[] dates = date.split("-");
-		String[] hour = dates[2].substring(3).split(":");
+		LocalDateTime dateFinal;
 		
-		LocalDate dateData = LocalDate.of(
-				Integer.valueOf(new StringBuilder("20").append(dates[0]).toString()), 
-				Integer.valueOf(dates[1]), 
-				Integer.valueOf(dates[2].substring(0, 2)));
+		try {
+			
+			String[] dates = date.split("-");
+			String[] hour = dates[2].substring(3).split(":");
+			
+			LocalDate dateData = LocalDate.of(
+					Integer.valueOf(new StringBuilder("20").append(dates[0]).toString()), 
+					Integer.valueOf(dates[1]), 
+					Integer.valueOf(dates[2].substring(0, 2)));
+			
+			LocalTime hourData = LocalTime.of(
+					Integer.valueOf(hour[0]), 
+					Integer.valueOf(hour[1]), 
+					Integer.valueOf(hour[2]));
+			
+			dateFinal = LocalDateTime.of(dateData, hourData);
 		
-		LocalTime hourData = LocalTime.of(
-				Integer.valueOf(hour[0]), 
-				Integer.valueOf(hour[1]), 
-				Integer.valueOf(hour[2]));
+		}catch (Exception e) {
+			
+			dateFinal = null;
+		}
 		
-		return LocalDateTime.of(dateData, hourData);
+		return dateFinal;
 	}
 
 	/**
